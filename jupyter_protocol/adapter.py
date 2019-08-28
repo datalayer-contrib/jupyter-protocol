@@ -6,7 +6,8 @@
 import re
 import json
 
-from jupyter_client import protocol_version_info
+from . import protocol_version_info
+
 
 def code_to_line(code, cursor_pos):
     """Turn a multiline code block and cursor position into a single line
@@ -28,6 +29,7 @@ def code_to_line(code, cursor_pos):
 _match_bracket = re.compile(r'\([^\(\)]+\)', re.UNICODE)
 _end_bracket = re.compile(r'\([^\(]*$', re.UNICODE)
 _identifier = re.compile(r'[a-z_][0-9a-z._]*', re.I|re.UNICODE)
+
 
 def extract_oname_v4(code, cursor_pos):
     """Reimplement token-finding logic from IPython 2.x javascript
@@ -95,6 +97,7 @@ class Adapter(object):
             return self.handle_reply_status_error(msg)
         return handler(msg)
 
+
 def _version_str_to_list(version):
     """convert a version string to a list of ints
 
@@ -107,6 +110,7 @@ def _version_str_to_list(version):
         except ValueError:
             pass
     return v
+
 
 class V5toV4(Adapter):
     """Adapt msg protocol v5 to v4"""
@@ -362,7 +366,6 @@ class V4toV5(Adapter):
     def input_request(self, msg):
         msg['content'].setdefault('password', False)
         return msg
-
 
 
 def adapt(msg, to_version=protocol_version_info[0]):

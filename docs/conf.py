@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# jupyter_client documentation build configuration file, created by
+# jupyter_protocol documentation build configuration file, created by
 # sphinx-quickstart on Tue May 26 15:41:51 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -51,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'jupyter_client'
+project = 'jupyter_protocol'
 copyright = '2015, Jupyter Development Team'
 author = 'Jupyter Development Team'
 
@@ -61,7 +61,7 @@ author = 'Jupyter Development Team'
 #
 version_ns = {}
 here = os.path.dirname(__file__)
-version_py = os.path.join(here, os.pardir, 'jupyter_client', '_version.py')
+version_py = os.path.join(here, os.pardir, 'jupyter_protocol', '_version.py')
 with open(version_py) as f:
     exec(compile(f.read(), version_py, 'exec'), version_ns)
 
@@ -211,7 +211,7 @@ html_theme = 'sphinx_rtd_theme'
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'jupyter_clientdoc'
+htmlhelp_basename = 'jupyter_protocoldoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -233,7 +233,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'jupyter_client.tex', 'jupyter\\_client Documentation',
+  (master_doc, 'jupyter_protocol.tex', 'jupyter\\_protocol Documentation',
    'Jupyter Development Team', 'manual'),
 ]
 
@@ -263,7 +263,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'jupyter_client', 'jupyter_client Documentation',
+    (master_doc, 'jupyter_protocol', 'jupyter_protocol Documentation',
      [author], 1)
 ]
 
@@ -277,8 +277,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'jupyter_client', 'jupyter_client Documentation',
-   author, 'jupyter_client', 'One line description of project.',
+  (master_doc, 'jupyter_protocol', 'jupyter_protocol Documentation',
+   author, 'jupyter_protocol', 'One line description of project.',
    'Miscellaneous'),
 ]
 

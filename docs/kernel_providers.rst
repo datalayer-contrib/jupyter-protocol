@@ -15,7 +15,7 @@ and start kernels. For example, you could find kernels in an environment system
 like conda, or kernels on remote systems which you can access.
 
 To write a kernel provider, subclass
-:class:`jupyter_client.discovery.KernelProviderBase`, giving your provider an ID
+:class:`jupyter_kernel_mgmt.discovery.KernelProviderBase`, giving your provider an ID
 and overriding two methods.
 
 .. class:: MyKernelProvider
@@ -32,7 +32,7 @@ and overriding two methods.
       *name* is a short string identifying the kernel type.
       *attributes* is a dictionary with information to allow selecting a kernel.
 
-   .. method:: make_manager(name)
+   .. method:: launch(name)
 
       Prepare and return a :class:`~jupyter_client.KernelManager` instance
       ready to start a new kernel instance of the type identified by *name*.
@@ -42,7 +42,7 @@ For example, imagine we want to tell Jupyter about kernels for a new language
 called *oblong*::
 
     # oblong_provider.py
-    from jupyter_client.discovery import KernelProviderBase
+    from jupyter_kernel_mgmt.discovery import KernelProviderBase
     from jupyter_client import KernelManager
     from shutil import which
 
@@ -66,7 +66,7 @@ called *oblong*::
                 'argv': ['oblong-kernel'],
             }
 
-        def make_manager(self, name):
+        def launch(self, name):
             if name == 'standard':
                 return KernelManager(kernel_cmd=['oblong-kernel'],
                                      extra_env={'ROUNDED': '0'})
@@ -81,7 +81,7 @@ something like this::
 
     setup(...
         entry_points = {
-        'jupyter_client.kernel_providers' : [
+        'jupyter_kernel_mgmt.kernel_type_providers' : [
             # The name before the '=' should match the id attribute
             'oblong = oblong_provider:OblongKernelProvider',
         ]
@@ -91,15 +91,15 @@ Finding kernel types
 ====================
 
 To find and start kernels in client code, use
-:class:`jupyter_client.discovery.KernelFinder`. This uses multiple kernel
+:class:`jupyter_kernel_mgmt.discovery.KernelFinder`. This uses multiple kernel
 providers to find available kernels. Like a kernel provider, it has methods
-``find_kernels`` and ``make_manager``. The kernel names it works
+``find_kernels`` and ``launch``. The kernel names it works
 with have the provider ID as a prefix, e.g. ``oblong/rounded`` (from the example
 above).
 
 ::
 
-    from jupyter_client.discovery import KernelFinder
+    from jupyter_kernel_mgmt.discovery import KernelFinder
     kf = KernelFinder.from_entrypoints()
 
     ## Find available kernel types
@@ -110,10 +110,10 @@ above).
     # ...
 
     ## Start a kernel by name
-    manager = kf.make_manager('oblong/standard')
+    manager = kf.launch('oblong/standard')
     manager.start_kernel()
 
-.. module:: jupyter_client.discovery
+.. module:: jupyter_kernel_mgmt.discovery
 
 .. autoclass:: KernelFinder
 
@@ -121,7 +121,7 @@ above).
 
    .. automethod:: find_kernels
 
-   .. automethod:: make_manager
+   .. automethod:: launch
 
 Kernel providers included in ``jupyter_client``
 ===============================================
